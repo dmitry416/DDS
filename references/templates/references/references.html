@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/references.css' %}">
+    <title>DDS - Управление справочником</title>
 </head>
 <body>
-Справочник
+
+<div class="back-button">
+    <button>Назад</button>
+</div>
+
+<div class="container">
+    <div class="column">
+        <h2>Статусы</h2>
+        <div id="status-list">
+            <button>Статус 1</button>
+            <button>Статус 2</button>
+        </div>
+        <button class="add-button">Добавить</button>
+    </div>
+    <div class="column">
+        <h2>Типы</h2>
+        <div id="type-list">
+            <button>Тип 1</button>
+            <button>Тип 2</button>
+        </div>
+        <button class="add-button">Добавить</button>
+    </div>
+    <div class="column">
+        <h2>Категории</h2>
+        <div id="category-list">
+            <button>Категория 1</button>
+            <button>Категория 2</button>
+            <button>Категория 3</button>
+        </div>
+        <button class="add-button">Добавить</button>
+    </div>
+
+    <div class="column">
+        <h2>Подкатегории</h2>
+        <div id="subcategory-list">
+            <button>Подкатегория 1</button>
+            <button>Подкатегория 2</button>
+        </div>
+        <button class="add-button">Добавить</button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modal-title">Редактирование</h2>
+            <button class="close-button" id="close-modal">&times;</button>
+        </div>
+        <input type="text" id="modal-input" placeholder="Введите название">
+        <div class="modal-buttons">
+            <button id="delete-button">Удалить</button>
+            <button id="save-button">Сохранить</button>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
