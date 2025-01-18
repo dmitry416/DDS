@@ -27,14 +27,23 @@ class SubCategorySerializer(serializers.ModelSerializer):
 
 
 class RecordSerializer(serializers.ModelSerializer):
-    status = StatusSerializer()
-    type = TypeSerializer()
-    category = CategorySerializer()
-    subcategory = SubCategorySerializer()
+    status = serializers.PrimaryKeyRelatedField(queryset=Status.objects.all(), write_only=True)
+    type = serializers.PrimaryKeyRelatedField(queryset=Type.objects.all(), write_only=True)
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(), write_only=True)
+    subcategory = serializers.PrimaryKeyRelatedField(queryset=SubCategory.objects.all(), write_only=True)
+
+    status_detail = StatusSerializer(source='status', read_only=True)
+    type_detail = TypeSerializer(source='type', read_only=True)
+    category_detail = CategorySerializer(source='category', read_only=True)
+    subcategory_detail = SubCategorySerializer(source='subcategory', read_only=True)
 
     class Meta:
         model = Record
-        fields = ['id', 'date', 'status', 'type', 'category', 'subcategory', 'sum', 'comment']
+        fields = [
+            'id', 'date', 'status', 'type', 'category', 'subcategory',
+            'status_detail', 'type_detail', 'category_detail', 'subcategory_detail',
+            'sum', 'comment'
+        ]
 
     def validate(self, data):
         required_fields = ['sum', 'type', 'category', 'subcategory']

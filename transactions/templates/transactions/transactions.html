@@ -20,8 +20,6 @@
         <label for="status">Статус:</label>
         <select id="status">
             <option value="">Выберите статус</option>
-            <option value="Активен">Активен</option>
-            <option value="Неактивен">Неактивен</option>
         </select>
     </div>
 
@@ -29,8 +27,6 @@
         <label for="type">Тип:</label>
         <select id="type">
             <option value="">Выберите тип</option>
-            <option value="Тип 1">Тип 1</option>
-            <option value="Тип 2">Тип 2</option>
         </select>
     </div>
 
@@ -38,8 +34,6 @@
         <label for="category">Категория:</label>
         <select id="category">
             <option value="">Выберите категорию</option>
-            <option value="Категория 1">Категория 1</option>
-            <option value="Категория 2">Категория 2</option>
         </select>
     </div>
 
@@ -47,8 +41,6 @@
         <label for="subcategory">Подкатегория:</label>
         <select id="subcategory">
             <option value="">Выберите подкатегорию</option>
-            <option value="Подкатегория 1">Подкатегория 1</option>
-            <option value="Подкатегория 2">Подкатегория 2</option>
         </select>
     </div>
 
@@ -62,11 +54,12 @@
         <input type="text" id="comment">
     </div>
 
-    <!-- Кнопки "Отмена" и "Создать" -->
     <div class="form-buttons">
         <button id="cancel-button">Отмена</button>
         <button id="create-button">Создать</button>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/transactions.js' %}"></script>
 </body>
 </html>
