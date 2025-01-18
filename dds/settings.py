@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'home',
     'references',
     'transactions',
+    'api',
 ]
 
 MIDDLEWARE = [
