@@ -17,25 +17,27 @@
     <div class="column">
         <h2>Статусы</h2>
         <div id="status-list">
-            <button>Статус 1</button>
-            <button>Статус 2</button>
+            {% for status in statuses %}
+                <button>{{ status.name }}</button>
+            {% endfor %}
         </div>
         <button class="add-button">Добавить</button>
     </div>
     <div class="column">
         <h2>Типы</h2>
         <div id="type-list">
-            <button>Тип 1</button>
-            <button>Тип 2</button>
+            {% for type in types %}
+                <button>{{ type.name }}</button>
+            {% endfor %}
         </div>
         <button class="add-button">Добавить</button>
     </div>
     <div class="column">
         <h2>Категории</h2>
         <div id="category-list">
-            <button>Категория 1</button>
-            <button>Категория 2</button>
-            <button>Категория 3</button>
+            {% for category in categories %}
+                <button>{{ category.name }}</button>
+            {% endfor %}
         </div>
         <button class="add-button">Добавить</button>
     </div>
@@ -43,8 +45,9 @@
     <div class="column">
         <h2>Подкатегории</h2>
         <div id="subcategory-list">
-            <button>Подкатегория 1</button>
-            <button>Подкатегория 2</button>
+            {% for subcategory in subcategories %}
+                <button>{{ subcategory.name }}</button>
+            {% endfor %}
         </div>
         <button class="add-button">Добавить</button>
     </div>
@@ -56,6 +59,8 @@
             <h2 id="modal-title">Редактирование</h2>
             <button class="close-button" id="close-modal">&times;</button>
         </div>
+        <select id="modal-select">
+        </select>
         <input type="text" id="modal-input" placeholder="Введите название">
         <div class="modal-buttons">
             <button id="delete-button">Удалить</button>
@@ -63,6 +68,7 @@
         </div>
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/references.js' %}"></script>
 </body>
 </html>

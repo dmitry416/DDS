@@ -90,16 +90,12 @@ button:hover {
     z-index: 1000;
 }
 
-.modal-overlay.active {
-    display: flex;
-}
-
 .modal-content {
     background: #1a1a1d;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    width: 300px;
+    width: 400px;
     max-width: 90%;
     position: relative;
 }
@@ -156,4 +152,13 @@ button:hover {
 .modal-buttons button#delete-button {
     background-color: #FF0000;
     color: white;
+}
+
+#modal-select, #modal-select option {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #531a26;
+    margin-bottom: 10px;
 }
