@@ -84,3 +84,8 @@ button:hover {
 .form-buttons button:hover {
     opacity: 0.9;
 }
+
+#delete-button {
+    background: #FF0000;
+    display: none;
+}

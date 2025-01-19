@@ -6,7 +6,7 @@ let curData = ""
 let subData = ""
 let curID = -1;
 
-function openModal(title, type, id = null, name=null, selected=null) {
+function openModal(title, type, id = null, name = null, selected = null) {
     curID = id;
     switch (type) {
         case "status":
@@ -56,88 +56,99 @@ function openModal(title, type, id = null, name=null, selected=null) {
 }
 
 function updateAll() {
-        $('#status-list').empty();
-        $('#type-list').empty();
-        $('#category-list').empty();
-        $('#subcategory-list').empty();
+    $('#status-list').empty();
+    $('#type-list').empty();
+    $('#category-list').empty();
+    $('#subcategory-list').empty();
 
-        $.get('api/statuses', (data, textStatus) => {
-            statuses = data;
-            statuses.forEach(status => {
-                $('#status-list').append(`<button onclick="openModal('Редактировать статус', 'status', ${status.id}, '${status.name}')">${status.name}</button>`)
-            });
+    $.get('api/statuses', (data, textStatus) => {
+        statuses = data;
+        statuses.forEach(status => {
+            $('#status-list').append(`<button onclick="openModal('Редактировать статус', 'status', ${status.id}, '${status.name}')">${status.name}</button>`)
         });
-        $.get('api/types', (data, textStatus) => {
-            types = data;
-            types.forEach(type => {
-                $('#type-list').append(`<button onclick="openModal('Редактировать тип', 'type', ${type.id}, '${type.name}')">${type.name}</button>`)
-            });
+    });
+    $.get('api/types', (data, textStatus) => {
+        types = data;
+        types.forEach(type => {
+            $('#type-list').append(`<button onclick="openModal('Редактировать тип', 'type', ${type.id}, '${type.name}')">${type.name}</button>`)
         });
-        $.get('api/categories', (data, textStatus) => {
-            categories = data;
-            categories.forEach(category => {
-                $('#category-list').append(`<button onclick="openModal('Редактировать категорию', 'category', ${category.id}, '${category.name}', ${category.type})">${category.name}</button>`)
-            });
+    });
+    $.get('api/categories', (data, textStatus) => {
+        categories = data;
+        categories.forEach(category => {
+            $('#category-list').append(`<button onclick="openModal('Редактировать категорию', 'category', ${category.id}, '${category.name}', ${category.type})">${category.name}</button>`)
         });
-        $.get('api/subcategories', (data, textStatus) => {
-            subcategories = data;
-            subcategories.forEach(subcategory => {
-                $('#subcategory-list').append(`<button onclick="openModal('Редактировать подкатегорию', 'subcategory', ${subcategory.id}, '${subcategory.name}', ${subcategory.category})">${subcategory.name}</button>`)
-            });
+    });
+    $.get('api/subcategories', (data, textStatus) => {
+        subcategories = data;
+        subcategories.forEach(subcategory => {
+            $('#subcategory-list').append(`<button onclick="openModal('Редактировать подкатегорию', 'subcategory', ${subcategory.id}, '${subcategory.name}', ${subcategory.category})">${subcategory.name}</button>`)
         });
-    }
+    });
+}
 
-    function closeModal() {
-        $('#modal-overlay').fadeOut();
-    }
+function closeModal() {
+    $('#modal-overlay').fadeOut();
+}
 
-    function saveData() {
-        const inputValue = $('#modal-input').val().trim();
-        if ($('#modal-select').is(":hidden")) {
-            if (inputValue) {
-                if (curID == null) {
-                    $.post(`api/${curData}/`, {"name": inputValue});
-                } else {
-                    $.ajax({
-                        url: `api/${curData}/${curID}/`,
-                        type: "PUT",
-                        data: {"name": inputValue}
-                    });
-                }
-                updateAll();
-                closeModal();
+function saveData() {
+    const inputValue = $('#modal-input').val().trim();
+    if ($('#modal-select').is(":hidden")) {
+        if (inputValue) {
+            if (curID == null) {
+                $.post(`api/${curData}/`, {"name": inputValue}, () => {
+                    updateAll();
+                    closeModal();
+                });
             } else {
-                alert('Поле не может быть пустым!');
+                $.ajax({
+                    url: `api/${curData}/${curID}/`,
+                    type: "PUT",
+                    data: {"name": inputValue},
+                    success: () => {
+                        updateAll();
+                        closeModal();
+                    },
+                });
             }
         } else {
-            const selectValue = $('#modal-select').val();
-            if (inputValue && selectValue) {
-                if (curID == null) {
-                    $.post(`api/${curData}/`, {"name": inputValue, [subData]: selectValue});
-                } else {
-                    $.ajax({
-                        url: `api/${curData}/${curID}/`,
-                        type: "PUT",
-                        data: {"name": inputValue, [subData]: selectValue}
-                    });
-                }
-
-                updateAll();
-                closeModal();
+            alert('Поле не может быть пустым!');
+        }
+    } else {
+        const selectValue = $('#modal-select').val();
+        if (inputValue && selectValue) {
+            if (curID == null) {
+                $.post(`api/${curData}/`, {"name": inputValue, [subData]: selectValue}, () => {
+                    updateAll();
+                    closeModal();
+                });
             } else {
-                alert('Поле не может быть пустым!');
+                $.ajax({
+                    url: `api/${curData}/${curID}/`,
+                    type: "PUT",
+                    data: {"name": inputValue, [subData]: selectValue},
+                    success: () => {
+                        updateAll();
+                        closeModal();
+                    },
+                });
             }
+        } else {
+            alert('Поле не может быть пустым!');
         }
     }
+}
 
-    function deleteData() {
-        $.ajax({
-            url: `api/${curData}/${curID}/`,
-            type: "DELETE",
-        });
-        updateAll();
-        closeModal();
-    }
+function deleteData() {
+    $.ajax({
+        url: `api/${curData}/${curID}/`,
+        type: "DELETE",
+        success: () => {
+            updateAll();
+            closeModal();
+        },
+    });
+}
 
 $(document).ready(function () {
     updateAll();
